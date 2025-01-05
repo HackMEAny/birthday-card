@@ -5,7 +5,7 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import Image from "next/image";
-import mobileImage from "./b_mob_2.png";
+import mobileImage from "./b_mob_3.png";
 import Link from "next/link";
 import { FaMapLocationDot } from "react-icons/fa6";
 
@@ -45,7 +45,7 @@ export default function Home() {
   useEffect(() => {
     //Implementing the setInterval method
     const interval = setInterval(() => {
-      if (state === 40) setState(50);
+      if (state === 40) setState(60);
       else setState(40);
     }, 1000);
 
