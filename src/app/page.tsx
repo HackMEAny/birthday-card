@@ -47,7 +47,7 @@ export default function Home() {
     const interval = setInterval(() => {
       if (state === 40) setState(50);
       else setState(40);
-    }, 2000);
+    }, 1000);
 
     //Clearing the interval
     return () => {
@@ -128,7 +128,7 @@ export default function Home() {
           {" "}
         </button> */}
         <Image src={mobileImage} fill alt="text" />
-        <button className="text-red-600 fixed bottom-0 right-0 z-50 p-4">
+        <button className="text-green-900 fixed bottom-0 right-0 z-50 p-4">
           <Link
             href="https://maps.app.goo.gl/SZd4JFfkjpb2LdTx9"
             className="underline-offset-3 "
