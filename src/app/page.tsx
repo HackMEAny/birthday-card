@@ -1,101 +1,144 @@
+"use client";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { useEffect, useRef, useState } from "react";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
+import "@react-pdf-viewer/core/lib/styles/index.css";
 import Image from "next/image";
+import mobileImage from "./b_mob_2.png";
+import Link from "next/link";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  // const audioRef = useRef<HTMLAudioElement>(null);
+  // const [canPlay, setCanPlay] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  // useEffect(() => {
+  //   const handleUserInteraction = () => {
+  //     setCanPlay(true);
+  //   };
+
+  //   window.addEventListener("click", handleUserInteraction);
+  //   window.addEventListener("touchstart", handleUserInteraction);
+
+  //   return () => {
+  //     window.removeEventListener("click", handleUserInteraction);
+  //     window.removeEventListener("touchstart", handleUserInteraction);
+  //   };
+  // }, []);
+
+  // const playSong = () => {
+  //   if (audioRef.current && canPlay) {
+  //     audioRef.current.play();
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (canPlay) {
+  //     setTimeout(() => {
+  //       playSong();
+  //     }, 10); // Play after 2 seconds
+  //   }
+  // }, [canPlay]);
+
+  const [state, setState] = useState(40);
+  useEffect(() => {
+    //Implementing the setInterval method
+    const interval = setInterval(() => {
+      if (state === 40) setState(50);
+      else setState(40);
+    }, 2000);
+
+    //Clearing the interval
+    return () => {
+      clearInterval(interval);
+    };
+  }, [state]);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const tryToPlayAudio = () => {
+      if (audioRef.current) {
+        audioRef.current
+          .play()
+          .then(() => {
+            console.log("Audio started successfully");
+            // Remove the listener after successful playback
+            window.removeEventListener("click", tryToPlayAudio);
+            window.removeEventListener("touchstart", tryToPlayAudio);
+          })
+          .catch((error) => {
+            console.error("Audio playback failed:", error);
+          });
+      }
+    };
+
+    // Attach minimal interaction handlers
+    window.addEventListener("click", tryToPlayAudio);
+    window.addEventListener("touchstart", tryToPlayAudio);
+
+    return () => {
+      window.removeEventListener("click", tryToPlayAudio);
+      window.removeEventListener("touchstart", tryToPlayAudio);
+    };
+  }, []);
+
+  // const defaultLayoutPluginInstance = defaultLayoutPlugin({
+  //   toolbarPlugin: {
+  //     fullScreenPlugin: {
+  //       // Zoom to fit the screen after entering and exiting the full screen mode
+  //       onEnterFullScreen: (zoom) => {
+  //         zoom(SpecialZoomLevel.PageFit);
+  //       },
+  //       onExitFullScreen: (zoom) => {
+  //         zoom(SpecialZoomLevel.PageFit);
+  //       },
+  //     },
+  //   },
+  // });
+
+  return (
+    <div>
+      <div className="hidden sm:flex">
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
+          <div
+            style={{
+              width: "100%",
+              height: "auto",
+              border: "1px solid rgba(0, 0, 0, 0)",
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            {/* <div className=""> */}
+            <Viewer
+              fileUrl="./example.pdf"
+              // plugins={[defaultLayoutPluginInstance]}
+              theme="dark"
+              defaultScale={1.7}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            {/* <button hidden onClick={playSong}>
+              {" "}
+              </button>
+              <audio ref={audioRef} src="/happy_birthday_song.mp3" /> */}
+            {/* </div> */}
+          </div>
+        </Worker>
+      </div>
+      <div className="flex-col sm:hidden">
+        {/* <button hidden onClick={playSong}>
+          {" "}
+        </button> */}
+        <Image src={mobileImage} fill alt="text" />
+        <button className="text-red-600 fixed bottom-0 right-0 z-50 p-4">
+          <Link
+            href="https://maps.app.goo.gl/SZd4JFfkjpb2LdTx9"
+            className="underline-offset-3 "
             target="_blank"
-            rel="noopener noreferrer"
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            <FaMapLocationDot size={state} />
+          </Link>
+        </button>
+      </div>
+      <audio ref={audioRef} src="/happy_birthday_song.mp3" />
     </div>
   );
 }
