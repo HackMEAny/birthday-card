@@ -8,6 +8,7 @@ import Image from "next/image";
 import mobileImage from "./b_mob_3.png";
 import Link from "next/link";
 import { FaMapLocationDot } from "react-icons/fa6";
+import Popup from "./popup";
 
 export default function Home() {
   // const audioRef = useRef<HTMLAudioElement>(null);
@@ -62,7 +63,7 @@ export default function Home() {
         audioRef.current
           .play()
           .then(() => {
-            console.log("Audio started successfully");
+            // console.log("Audio started successfully");
             // Remove the listener after successful playback
             window.removeEventListener("click", tryToPlayAudio);
             window.removeEventListener("touchstart", tryToPlayAudio);
@@ -98,7 +99,7 @@ export default function Home() {
   // });
 
   return (
-    <div>
+    <>
       <div className="hidden sm:flex">
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
           <div
@@ -108,7 +109,6 @@ export default function Home() {
               border: "1px solid rgba(0, 0, 0, 0)",
             }}
           >
-            {/* <div className=""> */}
             <Viewer
               fileUrl="./example.pdf"
               // plugins={[defaultLayoutPluginInstance]}
@@ -117,8 +117,8 @@ export default function Home() {
             />
             {/* <button hidden onClick={playSong}>
               {" "}
-              </button>
-              <audio ref={audioRef} src="/happy_birthday_song.mp3" /> */}
+              </button> */}
+            <audio ref={audioRef} src="/happy_birthday_song.mp3" />
             {/* </div> */}
           </div>
         </Worker>
@@ -128,6 +128,7 @@ export default function Home() {
           {" "}
         </button> */}
         <Image src={mobileImage} fill alt="text" />
+        <Popup />
         <button className="text-green-900 fixed bottom-0 right-0 z-50 p-4">
           <Link
             href="https://maps.app.goo.gl/SZd4JFfkjpb2LdTx9"
@@ -137,8 +138,8 @@ export default function Home() {
             <FaMapLocationDot size={state} />
           </Link>
         </button>
+        <audio ref={audioRef} src="/happy_birthday_song.mp3" />
       </div>
-      <audio ref={audioRef} src="/happy_birthday_song.mp3" />
-    </div>
+    </>
   );
 }
