@@ -1,3 +1,4 @@
+"use client";
 import Lottie from "lottie-react";
 import animationData from "./Animation - 1736268207260.json";
 import Link from "next/link";
@@ -23,7 +24,10 @@ export default function Popup() {
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 2000);
-
+    setTimeout(() => {
+      setIsOpen(false);
+    }, Number(timer) + 10000);
+    // console.log(timer);
     return () => clearTimeout(timer);
   }, []);
   return (
