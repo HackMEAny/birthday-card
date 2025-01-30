@@ -7,12 +7,19 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 export default function Popup() {
   const date1 = new Date();
   const date2 = new Date("2025-01-31");
+  date1.toLocaleString("en", { timeZone: "Asia/Kolkata" });
+  date2.toLocaleString("en", { timeZone: "Asia/Kolkata" });
 
   const differenceInMilliseconds = date2.getTime() - date1.getTime();
 
-  const differenceInDays = Math.floor(
-    differenceInMilliseconds / (1000 * 60 * 60 * 24)
-  );
+  const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+  // const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+  // const differenceInMinutes = Math.floor(differenceInSeconds / 60);
+  // const differenceInHours = Math.floor(differenceInMinutes / 60);
+  // const differenceInDays = Math.floor(differenceInHours / 24);
+
+  // console.log(differenceInDays);
+  // console.log(differenceInDays >= -1);
 
   const [isOpen, setIsOpen] = useState(false);
   //   console.log(isOpen);
@@ -49,10 +56,21 @@ export default function Popup() {
             />
             <div className="text-black dark:text-white">
               {differenceInDays >= 0
-                ? differenceInDays == 0
+                ? differenceInDays >= 0 && differenceInDays <= 1
+                  ? "Tomorrow is the day"
+                  : differenceInDays >= 0 && differenceInDays < 1
                   ? "Today's the day!"
                   : differenceInDays + " days left"
                 : "Thanks for joining us."}
+              {/* {
+                differenceInDays >= 0
+                  ? differenceInDays < 1
+                    ? "Today's the day!" // Covers 0 <= differenceInDays < 1
+                    : differenceInDays <= 1 // Correctly checks for tomorrow.
+                    ? "Tomorrow is the day" // differenceInDays ==1
+                    : Math.floor(differenceInDays) + " days left" // Handles > 1
+                  : "Thanks for joining us." // Handles differenceInDays < 0
+              } */}
             </div>
             <div className="text-black dark:text-white">
               <p>
