@@ -19,7 +19,7 @@ export default function Popup() {
   // const differenceInDays = Math.floor(differenceInHours / 24);
 
   // console.log(differenceInDays);
-  // console.log(differenceInDays >= -1);
+  // console.log(differenceInDays < -1);
 
   const [isOpen, setIsOpen] = useState(false);
   //   console.log(isOpen);
@@ -55,22 +55,21 @@ export default function Popup() {
               autoPlay={true}
             />
             <div className="text-black dark:text-white">
-              {differenceInDays >= 0
+              Today&apos;s the day!
+              {/* {differenceInDays >= 0
                 ? differenceInDays >= 0 && differenceInDays <= 1
                   ? "Tomorrow is the day"
-                  : differenceInDays >= 0 && differenceInDays < 1
+                  : differenceInDays >= 0 && differenceInDays < 0
                   ? "Today's the day!"
                   : differenceInDays + " days left"
-                : "Thanks for joining us."}
-              {/* {
-                differenceInDays >= 0
-                  ? differenceInDays < 1
-                    ? "Today's the day!" // Covers 0 <= differenceInDays < 1
-                    : differenceInDays <= 1 // Correctly checks for tomorrow.
-                    ? "Tomorrow is the day" // differenceInDays ==1
-                    : Math.floor(differenceInDays) + " days left" // Handles > 1
-                  : "Thanks for joining us." // Handles differenceInDays < 0
-              } */}
+                : "Thanks for joining us."} */}
+              {/* {differenceInDays >= 0
+                ? Math.abs(differenceInDays) >= 0
+                  ? "Today's the day!"
+                  : differenceInDays <= 1
+                  ? "Tomorrow is the day"
+                  : Math.floor(differenceInDays) + " days left"
+                : "Thanks for joining us."} */}
             </div>
             <div className="text-black dark:text-white">
               <p>
