@@ -5,21 +5,32 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 export default function Popup() {
-  const date1 = new Date();
+  const date1 = new Date("2025-02-01");
   const date2 = new Date("2025-01-31");
   date1.toLocaleString("en", { timeZone: "Asia/Kolkata" });
   date2.toLocaleString("en", { timeZone: "Asia/Kolkata" });
 
-  const differenceInMilliseconds = date2.getTime() - date1.getTime();
+  // const differenceInMilliseconds = date2.getTime() - date1.getTime();
 
-  const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
-  // const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
-  // const differenceInMinutes = Math.floor(differenceInSeconds / 60);
-  // const differenceInHours = Math.floor(differenceInMinutes / 60);
-  // const differenceInDays = Math.floor(differenceInHours / 24);
+  // const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+  const differenceInDays =
+    (date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24);
 
-  // console.log(differenceInDays);
-  // console.log(differenceInDays < -1);
+  // let message;
+
+  // if (Math.abs(Math.ceil(differenceInDays)) == 0) {
+  //   message = "Today's the day!";
+  // } else if (
+  //   differenceInDays > 0 &&
+  //   Math.abs(Math.ceil(differenceInDays)) == 1
+  // ) {
+  //   message = "Tomorrow is the day";
+  // } else if (differenceInDays > -1) {
+  //   message = "Thanks for joining us.";
+  // } else {
+  //   message = `${Math.floor(differenceInDays)} days left`; // For display - use Math.floor() here
+  // }
+  // console.log(message + differenceInDays);
 
   const [isOpen, setIsOpen] = useState(false);
   //   console.log(isOpen);
@@ -55,7 +66,7 @@ export default function Popup() {
               autoPlay={true}
             />
             <div className="text-black dark:text-white">
-              Today&apos;s the day!
+              {/* {message} */}
               {/* {differenceInDays >= 0
                 ? differenceInDays >= 0 && differenceInDays <= 1
                   ? "Tomorrow is the day"
@@ -63,13 +74,13 @@ export default function Popup() {
                   ? "Today's the day!"
                   : differenceInDays + " days left"
                 : "Thanks for joining us."} */}
-              {/* {differenceInDays >= 0
+              {differenceInDays >= 0
                 ? Math.abs(differenceInDays) >= 0
                   ? "Today's the day!"
                   : differenceInDays <= 1
                   ? "Tomorrow is the day"
                   : Math.floor(differenceInDays) + " days left"
-                : "Thanks for joining us."} */}
+                : "Thanks for joining us."}
             </div>
             <div className="text-black dark:text-white">
               <p>
